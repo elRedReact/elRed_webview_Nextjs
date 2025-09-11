@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 import Image from "next/image";
 import logo from "./../../../public/logo.svg";
 import menu from "./../../../public/menu-grid.svg";

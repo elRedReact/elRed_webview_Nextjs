@@ -15,6 +15,17 @@
   font-weight: 500;
   font-style: normal;
 }
+@font-face {
+  font-family: "AvenirPro-regular";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Regular.otf")
+    format("opentype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mobile{
+  display: none;
+}
 
 .mainPageContent {
   padding: 0 20px;
@@ -23,19 +34,20 @@
 
 .mainPageDesc {
   font-size: 16px;
-  font-weight: 500;
-  line-height: 27px;
-  font-family: "AvenirPro-medium";
+  font-weight: 400;
+  font-family: "AvenirPro-regular";
+  text-align: center;
+  margin-top: 10px;
 }
 
-.top_div{
+.top_div {
   display: flex;
   align-items: center;
   gap: 16px;
   margin-bottom: 16px;
 }
 
-.back_button_otp{
+.back_button_otp {
   cursor: pointer;
 }
 
@@ -76,6 +88,7 @@
     font-weight: 500;
     position: absolute;
     top: 110%;
+    font-family: "AvenirPro-medium";
   }
 }
 
@@ -96,7 +109,7 @@
 }
 
 .resendOtpLinkContainer {
-  margin-top: 25px;
+  margin-top: 20px;
   text-align: right;
 
   .resendOtpLinkTxt {
@@ -117,23 +130,25 @@
   line-height: 20px;
   font-weight: 500;
   text-align: right;
-  margin-top: 25px;
+  margin-top: 20px;
   font-family: "AvenirPro-medium";
 }
 
 .bottom_wrapper {
-  padding: 0 20px;
-  position: absolute;
-  bottom: 20px;
-  width: 100%; // Default for small screens
+  margin-top: 83px;
+  // padding: 0 20px;
+  // position: absolute;
+  // bottom: 20px;
+  // width: 100%; // Default for small screens
 
-  @media (min-width: 501px) {
-    max-width: 375px;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-  }
+  // @media (min-width: 501px) {
+  //   max-width: 375px;
+  //   margin: 0 auto;
+  //   left: 0;
+  //   right: 0;
+  // }
 }
+
 .instruction {
   color: #8e8e93;
   font-size: 14px;
@@ -158,10 +173,67 @@
   font-family: "AvenirPro-medium";
 }
 
-.disabled_btn{
+.disabled_btn {
   opacity: 0.5;
 }
 
-.enabled_btn{
+.enabled_btn {
   cursor: pointer;
+}
+
+.desktop_wrapper{
+  // background-color: red;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop {
+  max-width: 375px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo{
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+
+@media (max-width: 500px) {
+
+  .mobile{
+    display: block;
+  }
+
+  .desktop{
+    display: none;
+  }
+
+  .mainPageDesc {
+    font-family: "AvenirPro-medium";
+    text-align: left;
+  }
+
+  .bottom_wrapper {
+    padding: 0 20px;
+    position: absolute;
+    bottom: 20px;
+    width: 100%; // Default for small screens
+  }
+
+  .resendOtpLinkContainer{
+    margin-top: 25px;
+  }
+
+  .otpTimeRemaining{
+    margin-top: 25px;
+  }
+
+  .desktop_wrapper{
+    display: none;
+  }
 }

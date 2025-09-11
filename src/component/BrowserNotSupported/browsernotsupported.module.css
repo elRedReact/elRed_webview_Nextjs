@@ -13,13 +13,15 @@
   .container_div {
     background: #0d0d0d;
     height: 100vh;
-    max-width: 375px;
+    /* max-width: 375px; */
+    width: calc(100vw - 287px);
     margin: auto;
     color: #fff;
     /* display: flex;
         align-items: center;
         justify-content: center; */
     flex-direction: column;
+    position: relative;
   }
   
   .inner_div {
@@ -34,25 +36,48 @@
     transform: translate(-50%, -50%);
     width: 70%;
   }
+
+  .logo{
+    width: 110px;
+    height: 100px;
+  }
+  .header{
+    display: none;
+  }
   
   .title {
     margin-top: 45px;
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 600;
     font-family: "AvenirPro-demi";
   }
   
   .reason {
     margin-top: 10px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     color: #cccccc;
     font-family: "AvenirPro-md";
+    width: 300px;
   }
   
   @media (max-width: 500px) {
     .container_div {
       max-width: 100%;
+      width: unset;
+    }
+
+    .header{
+      display: block;
+    }
+
+    .title{
+      font-size: 24px;
+    }
+
+    .reason{
+      font-size: 14px;
+      width: unset;
     }
   }
   

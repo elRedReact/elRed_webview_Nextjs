@@ -8,9 +8,24 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "AvenirPro-medium";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
+    format("opentype");
+  font-weight: 500;
+  font-style: normal;
+}
+
 .title_text {
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 500;
   color: $theme_text;
-  font-family: "AvenirPro-demi";
+  font-family: "AvenirPro-medium";
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .title_text {
+    font-size: 24px;
+  }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./index.module.css";
+import style from "./index.module.scss";
 import logo from "../../../public/freenetwork.svg";
 import leftLeaf from "../../../public/leftLeaf.svg";
 import rightLeaf from "../../../public/rightLeaf.svg";

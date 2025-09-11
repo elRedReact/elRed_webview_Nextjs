@@ -7,9 +7,11 @@ import notSupported from "../../../public/notSupported.svg";
 const BrowserNotSupported = () => {
   return (
     <div className={style.container_div}>
-      <PaymentHeader noDisplay={true} />
+      <div className={style.header}>
+        <PaymentHeader noDisplay={true} />
+      </div>
       <div className={style.inner_div}>
-        <Image src={notSupported} alt="not-supported" />
+        <Image src={notSupported} alt="not-supported" className={style.logo}/>
         <div className={style.title}>Not supported browser</div>
         <div className={style.reason}>
           You&rsquo;re using a web browser we don&rsquo;t support yet.

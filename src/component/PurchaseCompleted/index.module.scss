@@ -1,3 +1,5 @@
+@use '/src/styles/variables.scss' as *;
+
 @font-face {
   font-family: "AvenirPro-md";
   src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
@@ -20,23 +22,28 @@
   src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Demi.otf")
     format("opentype");
 }
+@font-face {
+  font-family: "AvenirPro-light";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-UltLt.otf")
+    format("opentype");
+}
 
 .inner_div {
   position: relative;
   background: #0d0d0d;
-  background-image: url("../../../public/planBGstatic.png");
+  background-image: url("../../../public/fullbg.png");
   background-size: cover;
   background-position: center;
-  /* height: 100vh; */
   height: 100%;
-  max-width: 375px;
   margin: auto;
   color: #fff;
   display: flex;
   flex-direction: column;
-  padding-top: 78px;
+
+  // padding-top: 78px;
   z-index: 1;
   overflow: hidden;
+  align-items: center;
 }
 
 .inner_div::before {
@@ -58,7 +65,7 @@
 .plan_div {
   border: 1px solid #9e9e9f;
   background-color: #d6d6d624;
-  margin: 0 20px;
+  margin: 0 auto;
   padding: 16px;
   border-radius: 16px;
   display: flex;
@@ -66,10 +73,12 @@
   gap: 16px;
   backdrop-filter: blur(4px);
   z-index: 10;
+  width: 365px;
+
 }
 
 .ntw_name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   font-family: "AvenirPro-md";
 
@@ -78,12 +87,11 @@
   text-overflow: ellipsis;
   display: block;
   flex-shrink: 1;
-  min-width: 0;         /* ← KEY FIX */
-  
+  min-width: 0; /* ← KEY FIX */
 }
 
 .ntw_type {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   font-family: "AvenirPro-regular";
   color: #e5e5e5;
@@ -94,16 +102,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  margin: 0 auto;
   width: 80%;
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
 .congrats {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   font-family: "AvenirPro-demi";
   margin-top: 20px;
@@ -127,7 +136,7 @@
 }
 
 .count {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 700;
   font-family: "AvenirPro-bold";
   letter-spacing: 2px;
@@ -145,18 +154,24 @@
 }
 
 .text_msg {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400px;
   text-align: center;
   font-family: "AvenirPro-regular";
   color: #fff;
   letter-spacing: -0.3px;
   margin-top: 30px;
+  width: 393px;
 }
 
 .network_logo {
   border-radius: 50%;
   border: 1.35px solid #909090;
+}
+
+.success_logo{
+  width: 100px;
+  height: 100px;
 }
 
 .stickyBtnWrapper {
@@ -168,6 +183,16 @@
   max-width: 375px;
   padding: 20px;
   z-index: 999;
+  display: none;
+}
+
+.btn_wrapper {
+  width: 100%;
+  max-width: 375px;
+  padding: 20px;
+  z-index: 999;
+  margin-top: 50px;
+  font-size: 20px;
 }
 
 .stickyBtn {
@@ -184,7 +209,7 @@
 }
 
 .bolder_text {
-  font-family: "AvenirPro-demi";
+  font-family: "AvenirPro-bold";
 }
 
 .ntw_name_div {
@@ -193,8 +218,15 @@
   min-width: 0;
 }
 
+.desktop_wrap{
+  overflow: auto;
+  width: 100%;
+  padding: 50px 0;
+}
+
 @media (max-height: 700px) {
   .content_div {
+    margin: 0 auto;
     margin-top: 45px;
   }
 }
@@ -205,10 +237,61 @@
     width: 100vw;
   }
 
+  .desktop_wrap{
+    padding: unset;
+    margin-top: 78px;
+  }
   .stickyBtnWrapper {
+    display: block;
     left: 0;
     transform: none;
     width: 100vw;
     max-width: none;
+  }
+
+  .plan_div {
+    width: unset;
+    margin: 0 20px;
+  }
+
+  .inner_div {
+    align-items: unset;
+  }
+
+  .text_msg {
+    font-size: 14px;
+    width: unset;
+  }
+
+  .btn_wrapper{
+    display: none;
+  }
+
+  .ntw_name{
+    font-size: 20px;
+  }
+
+  .ntw_type{
+    font-size: 14px;
+  }
+
+  .success_logo{
+    height: unset;
+    width: unset;
+  }
+
+  .congrats{
+    font-size: 24px;
+  }
+
+  .count{
+    font-size: 24px;
+  }
+}
+
+
+@media (min-width:501px) and (max-width:$tab_size){
+  .plan_div{
+    margin-top: 60px;
   }
 }

@@ -257,7 +257,7 @@
   }
   
   .offcanvas.half-width {
-    width: 60% !important;
+    width: 280px !important;
     max-width: 100%;
     background-color: #242426 !important;
   }
@@ -279,7 +279,7 @@
     margin: 0 auto;
   }
   
-  @media (min-width: 501px) {
+  @media (min-width: 769px) {
     .offcanvas.half-width {
       width: 375px !important;
       /* max-width: 100%; */
@@ -293,7 +293,7 @@
   }
   
   .fade.modal-backdrop.show {
-    max-width: 375px;
+    /* max-width: 375px; */
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -301,16 +301,16 @@
   }
   
   .fade.custommodal {
-    max-width: 375px;
+    max-width: 768px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
   }
   
-  @media (max-width: 500px) {
+  @media (max-width: 768px) {
     .offcanvas-backdrop.show {
-      max-width: 500px;
+      /* max-width: 500px; */
       width: 100%;
     }
   
@@ -337,8 +337,15 @@
     height: 200px;
     padding: 0;
   }
+
+  @media (min-width:501px) {
+    .modal-content{
+      max-width: 343px;
+      margin: 0 auto;
+    }
+  }
   
-  @media (max-width: 365px) {
+  @media (max-width: 500px) {
     .offcanvas.half-width {
       width: 70% !important;
     }

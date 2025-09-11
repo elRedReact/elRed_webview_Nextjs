@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import style from "./index.module.css";
+import style from "./index.module.scss";
 import Image from "next/image";
 import success from "../../../../../public/successLogo.svg";
 import pending from "../../../../../public/pendingLogo.svg";
@@ -188,83 +188,132 @@ const Success = () => {
   return (
     <>
       <div className={style.container_div}>
-        <div className={style.content_div}>
+        <div className={style.mobile}>
+          <div className={style.content_div}>
+            <div className={style.title}>Transaction Details</div>
+            {/* <Image src={isPending ? pending : success} alt="success" /> */}
+            <div className={style.ntw_info}>
+              <ShimmerImage
+                src={transactionData?.networkClusterDetails?.logo}
+                alt="Logo"
+                width={28}
+                height={28}
+                className={style.ntw_info_logo}
+              />
+              <div className={style.ntw_info_name}>
+                {transactionData?.networkClusterDetails?.name}
+              </div>
+            </div>
+            <div className={style.parent_img}>
+              <div className={style.imgWrapper}>
+                {!loaded && <div className={style.shimmer} />}
+                <Image
+                  src={isPending ? pending : success}
+                  alt="success"
+                  width={100}
+                  height={100}
+                  onLoadingComplete={() => setLoaded(true)}
+                  className={loaded ? style.visible : style.hidden}
+                />
+              </div>
+            </div>
+
+            <div className={style.titleTag}>
+              {isPending ? "Pending" : "Success"}
+            </div>
+            <div className={style.details}>
+              {isPending
+                ? `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is pending now. Please avoid making a duplicate payment. Kindly check again after some time.`
+                : `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is processed successfully.`}
+            </div>
+
+            <div className={style.trnsId}>Transaction ID</div>
+            <div className={style.trnx}>
+              <div>{transactionData?.transactionDetails?.txnid}</div>
+              <div style={{ position: "relative" }}>
+                <Image
+                  src={copyIcon}
+                  alt="copy"
+                  onClick={handleCopy}
+                  style={{ cursor: "pointer" }}
+                />
+                {copied && <div className={style.copied}>Copied!</div>}
+              </div>
+            </div>
+            {/* <div className={style.homeBtn} onClick={handleGoHome}>
+            <div className={style.home}>Home</div>
+          </div> */}
+          </div>
+
+          <div className={style.bottom_wrapper}>
+            <div className={style.donot_close}>
+              Please do not click the Browser Back Button. Click the Home button
+              to navigate to Home.
+            </div>
+            <div className={style.home_btn} onClick={handleGoHome}>
+              Home
+            </div>
+          </div>
+        </div>
+
+        <div className={style.desktop}>
           <div className={style.title}>Transaction Details</div>
-          {/* <Image src={isPending ? pending : success} alt="success" /> */}
           <div className={style.ntw_info}>
             <ShimmerImage
               src={transactionData?.networkClusterDetails?.logo}
               alt="Logo"
-              width={28}
-              height={28}
+              width={38}
+              height={38}
               className={style.ntw_info_logo}
             />
             <div className={style.ntw_info_name}>
               {transactionData?.networkClusterDetails?.name}
             </div>
           </div>
-          <div className={style.parent_img}>
-            <div className={style.imgWrapper}>
-              {!loaded && <div className={style.shimmer} />}
-              <Image
-                src={isPending ? pending : success}
-                alt="success"
-                width={100}
-                height={100}
-                onLoadingComplete={() => setLoaded(true)}
-                className={loaded ? style.visible : style.hidden}
-              />
+          <div className={style.container_desktop}>
+            <div className={style.parent_img}>
+              <div className={style.imgWrapper}>
+                {!loaded && <div className={style.shimmer} />}
+                <Image
+                  src={isPending ? pending : success}
+                  alt="success"
+                  width={100}
+                  height={100}
+                  onLoadingComplete={() => setLoaded(true)}
+                  className={loaded ? style.visible : style.hidden}
+                />
+              </div>
+            </div>
+            <div className={style.titleTag}>
+              {isPending ? "Under Process" : "Success"}
+            </div>
+            <div className={style.details}>
+              {isPending
+                ? `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is pending now. Please avoid making a duplicate payment. Kindly check again after some time.`
+                : `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is processed successfully.`}
+            </div>
+            <div className={style.trnsId}>Transaction ID</div>
+            <div className={style.trnx}>
+              <div>{transactionData?.transactionDetails?.txnid}</div>
+              <div style={{ position: "relative" }}>
+                <Image
+                  src={copyIcon}
+                  alt="copy"
+                  onClick={handleCopy}
+                  style={{ cursor: "pointer" }}
+                />
+                {copied && <div className={style.copied}>Copied!</div>}
+              </div>
             </div>
           </div>
-          {/* <div className={style.parent_img}>
-            <div className={style.imgWrapper}>
-              {!loaded && <div className={style.shimmer} />}
-              <Image
-                src={isPending ? pending : success}
-                alt="success"
-                onLoadingComplete={() => setLoaded(true)}
-                fill
-                className={`${style.image} ${
-                  loaded ? style.visible : style.hidden
-                }`}
-              />
+          <div className={style.desktop_bottom_wrapper}>
+            <div className={style.donot_close}>
+              Please do not click the Browser Back Button. Click the Home button
+              to navigate to Home.
             </div>
-          </div> */}
-
-          <div className={style.titleTag}>
-            {isPending ? "Pending" : "Success"}
-          </div>
-          <div className={style.details}>
-            {isPending
-              ? `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is pending now. Please avoid making a duplicate payment. Kindly check again after some time.`
-              : `Your payment of Rs. ${transactionData?.transactionDetails?.amount} for the yearly plan is processed successfully.`}
-          </div>
-
-          <div className={style.trnsId}>Transaction ID</div>
-          <div className={style.trnx}>
-            <div>{transactionData?.transactionDetails?.txnid}</div>
-            <div style={{ position: "relative" }}>
-              <Image
-                src={copyIcon}
-                alt="copy"
-                onClick={handleCopy}
-                style={{ cursor: "pointer" }}
-              />
-              {copied && <div className={style.copied}>Copied!</div>}
+            <div className={style.home_btn} onClick={handleGoHome}>
+              Home
             </div>
-          </div>
-          {/* <div className={style.homeBtn} onClick={handleGoHome}>
-            <div className={style.home}>Home</div>
-          </div> */}
-        </div>
-
-        <div className={style.bottom_wrapper}>
-          <div className={style.donot_close}>
-            Please do not click the Browser Back Button. Click the Home button
-            to navigate to Home.
-          </div>
-          <div className={style.home_btn} onClick={handleGoHome}>
-            Home
           </div>
         </div>
       </div>

@@ -10,21 +10,74 @@
     format("opentype");
 }
 
-.container_div {
+@font-face {
+  font-family: "AvenirPro-regular";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Regular.otf")
+    format("opentype");
+}
+/* for mobile  */
+/* .container_div {
   background: #0d0d0d;
-  /* height: 100vh; */
-  /* height: 100dvh; */
   height: 100%;
   max-width: 375px;
   margin: auto;
   color: #fff;
   flex-direction: column;
+} */
+
+.container_div {
+  background-image: url("../../../public/desktop-images/loginbg.png");
+  height: 100%;
+  margin: auto;
+  color: #fff;
+  flex-direction: column;
+  background-size: cover;
+}
+
+.mobile_header {
+  display: none;
+}
+.desktop_header {
+}
+
+
+.mobile_sign_in{
+  display: none;
+}
+.sign_in_wrapper {
+  max-width: 375px;
+  margin: auto;
+  color: #fff;
+
+  /* flex-direction: column; */
+}
+
+.desktop_signin_wrapper{
+  /* max-width: 375px; */
+  /* background-color: yellow; */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.desktop_content_wrapper{
+  max-width: 375px;
+  text-align: center;
+}
+
+.sign_in_desktop {
+  font-size: 40px;
+  /* padding: 0 20px; */
+  padding-top: 40px;
+  font-weight: 600;
+  font-family: "AvenirPro-demi";
 }
 
 .sign_in {
   font-size: 24px;
   padding: 0 20px;
-  padding-top: 64px;
+  padding-top: 60px;
   font-weight: 600;
   font-family: "AvenirPro-demi";
 }
@@ -39,6 +92,14 @@
   font-family: "AvenirPro-md";
 }
 
+.sign_in_text_desktop {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "AvenirPro-regular";
+  width: 365px;
+}
+
 .phn_title {
   font-family: "AvenirPro-md";
   font-size: 16px;
@@ -48,6 +109,11 @@
 .input_wrapper {
   padding: 0 20px;
 }
+.input_wrapper_desktop {
+  /* padding: 0 20px; */
+  margin-top: 40px;
+}
+
 
 /* .button_wrapper {
   padding: 20px;
@@ -64,6 +130,11 @@
   max-width: 375px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.button_wrapper_desktop{
+  position: relative;
+  margin-top: 40px;
 }
 
 .signin_btn {
@@ -111,6 +182,7 @@
   margin-top: 6px;
   font-family: "AvenirPro-md";
   font-weight: 500;
+  text-align: left;
 }
 
 .invalid_input {
@@ -131,11 +203,24 @@
 @media (max-width: 500px) {
   .container_div {
     max-width: 100%;
+    background: #0d0d0d;
+    height: 100%;
+    margin: auto;
+    color: #fff;
+    flex-direction: column;
   }
 
   .button_wrapper {
     max-width: 100%;
     left: 0;
     transform: none;
+  }
+
+  .desktop_signin_wrapper{
+    display: none;
+  }
+
+  .mobile_sign_in{
+    display: block;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./index.module.css";
+import styles from "./index.module.scss";
 import PaymentHeader from "@/component/PaymentHeader/PaymentHeader";
 import LogoutPayment from "@/component/LogoutPayment/LogoutPayment";
 import { useLogout } from "@/context/LogoutContext";
@@ -22,8 +22,9 @@ import BrowserNotSupported from "@/component/BrowserNotSupported/BrowserNotSuppo
 import Button from "react-bootstrap/Button";
 import ToastMessage from "@/component/ToastMessage/ToastMessage";
 import { useRouter } from "next/navigation";
+import MembershipLayout from "@/component/MembershipLayout";
 
-const Payments = () => {
+const HomePage = () => {
   const searchParams = useSearchParams();
   const { isOpen, setIsOpen } = useLogout();
   const router = useRouter();
@@ -158,9 +159,12 @@ const Payments = () => {
     return <BrowserNotSupported />;
   }
 
+
   return (
     <div className={styles.container_div}>
-      <PaymentHeader />
+      <div className={styles.mobile_header}>
+        <PaymentHeader />
+      </div>
 
       {!state.isLoading && state.errorCode == 12 && <InvalidNetworkComp />}
       {!state.hasNetworkCode && state.errorCode == null && <HomeComponent />}
@@ -194,4 +198,15 @@ const Payments = () => {
   );
 };
 
-export default withAuth(Payments);
+// Define the layout function
+const getLayout = (page) => <MembershipLayout>{page}</MembershipLayout>;
+
+// ✅ Apply withAuth
+const ProtectedPage = withAuth(HomePage);
+
+// ✅ Attach layout to the final wrapped component
+ProtectedPage.getLayout = getLayout;
+
+export default ProtectedPage;
+
+// export default withAuth(HomePage);

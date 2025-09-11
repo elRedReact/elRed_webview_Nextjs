@@ -7,7 +7,7 @@ const InvalidNetworkComp = () => {
   return (
     <div className={style.container_div}>
       <div className={style.inner_div}>
-        <Image src={invalidLogo} alt="invalid-network" />
+        <Image src={invalidLogo} alt="invalid-network" className={style.logo}/>
         <div className={style.title}>Invalid Network Code</div>
         <div className={style.reason}>
           Please check the Network Code. Network Code Invalid or Network

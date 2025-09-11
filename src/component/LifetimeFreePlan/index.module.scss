@@ -1,3 +1,5 @@
+@use '/src/styles/variables.scss' as *;
+
 @font-face {
   font-family: "AvenirPro-md";
   src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
@@ -17,14 +19,14 @@
 }
 
 .inner_div {
-  position: relative; 
+  position: relative;
   background: #0d0d0d;
-  background-image: url("../../../public/planBGstatic.png");
+  background-image: url("../../../public/fullbg.png");
   background-size: cover;
   background-position: center;
   /* height: 100vh; */
   height: 100%;
-  max-width: 375px;
+  /* max-width: 375px; */
   margin: auto;
   color: #fff;
   display: flex;
@@ -32,6 +34,7 @@
   padding-top: 78px;
   z-index: 1;
   overflow: hidden;
+  align-items: center;
 }
 
 .inner_div::before {
@@ -41,12 +44,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(
-    0,
-    0,
-    0,
-    0.75
-  ); 
+  background: rgba(0, 0, 0, 0.75);
   z-index: 0;
 }
 
@@ -65,16 +63,17 @@
   align-items: center;
   gap: 16px;
   backdrop-filter: blur(4px);
+  width: 365px;
 }
 
 .ntw_name {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
   font-family: "AvenirPro-md";
 }
 
 .ntw_type {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   font-family: "AvenirPro-regular";
   color: #e5e5e5;
@@ -93,7 +92,7 @@
 }
 
 .congrats {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   font-family: "AvenirPro-demi";
   margin-top: 20px;
@@ -130,13 +129,14 @@
 }
 
 .text_msg {
-  font-size: 14px;
+  font-size: 16px;
   font-style: 400px;
   text-align: center;
   font-family: "AvenirPro-regular";
   color: #cccccc;
   letter-spacing: -0.3px;
   margin-top: 20px;
+  line-height: 24px;
 }
 
 .network_logo {
@@ -185,5 +185,37 @@
     transform: none;
     width: 100vw;
     max-width: none;
+  }
+
+  .inner_div {
+    align-items: unset;
+  }
+
+  .plan_div {
+    width: unset;
+  }
+
+  .congrats {
+    font-size: 24px;
+  }
+
+  .text_msg {
+    font-size: 14px;
+  }
+
+  .ntw_name {
+    font-size: 20px;
+  }
+
+  .ntw_type {
+    font-size: 14px;
+  }
+}
+
+
+
+@media (min-width:501px) and (max-width:$tab_size){
+  .plan_div{
+    margin-top: 160px;
   }
 }

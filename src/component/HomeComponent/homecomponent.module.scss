@@ -1,3 +1,5 @@
+@use '/src/styles/variables.scss' as *;
+
 @font-face {
     font-family: "AvenirPro-regular";
     src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
@@ -51,7 +53,7 @@
   }
   
   .title {
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 600;
     color: #fff;
     text-align: center;
@@ -59,20 +61,31 @@
   }
   
   .description {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     line-height: 24px;
     color: #cccccc;
     text-align: center;
     margin-top: 10px;
-    padding: 0 25px;
+    /* padding: 0 25px; */
     font-family: "AvenirPro-regular";
     font-weight: 500;
+    width: 372px;
   }
   
-  @media (max-width: 500px) {
+  @media (max-width: $tab_size) {
     .container_div {
       max-width: 100%;
     }
   }
   
+  @media (min-width: 769px) and (max-width: 1280px) {
+    .title {
+      font-size: 32px;
+    }
+    .description{
+      font-size: 16px;
+      width: 372px;
+      padding: 0;
+    }
+  }

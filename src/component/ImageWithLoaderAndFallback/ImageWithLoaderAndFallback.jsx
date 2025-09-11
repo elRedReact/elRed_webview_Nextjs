@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './ImageWithLoaderAndFallback.module.css';
 
@@ -14,6 +14,12 @@ const ImageWithLoaderAndFallback = ({
 }) => {
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState(src);
+
+  useEffect(() => {
+    // Replace + with %20 for better compatibility
+    const encodedSrc = src?.replace(/\+/g, '%20');
+    setImgSrc(encodedSrc);
+  }, [src]);
 
   return (
     <div

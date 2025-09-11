@@ -1,3 +1,5 @@
+@use '/src/styles/variables.scss' as *;
+
 @font-face {
   font-family: "AvenirPro-regular";
   src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
@@ -175,7 +177,7 @@
   object-fit: cover;
 } */
 
-@media (max-width: 500px) {
+@media (max-width: $tab_size) {
   .header_wrapper {
     max-width: 100%;
   }
