@@ -43,7 +43,6 @@ const Failed = () => {
       localStorage.removeItem("trxId");
       // router.push(nccode ? `/membership?nccode=${nccode}` : "/membership");
       router.push("/membership");
-      // setIsOpen(false);
     };
 
     let intervalId = null;
