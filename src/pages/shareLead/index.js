@@ -1,5 +1,5 @@
 import NotFound from "@/component/notFound";
-import { baseURL, webviewURL } from "@/config";
+import { baseURL, webviewURL, appDefaultHeader, appHeaderKey1, appHeaderKey2 } from "@/config";
 import Head from "next/head";
 
 function ShareNeed(props) {
@@ -8,9 +8,12 @@ function ShareNeed(props) {
   if (!userCode && !leadId) {
     return <NotFound />;
   }
+
+  console.log(data)
   return (
     <>
       <Head>
+        <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={data?.leadTitle ?? ""} key="title" />
         <meta
           property="og:description"
@@ -29,7 +32,7 @@ function ShareNeed(props) {
       <div className="d-flex align-item-center justify-content-center height-100">
         <iframe
           allow="web-share"
-          src={`${webviewURL}my-bio/leads/responding-leads?leadId=${leadId}&userCode=${userCode}`}
+          src={`${webviewURL}/leads/responding-leads?leadId=${leadId}&userCode=${userCode}`}
           className="iframe-cont"
           title=""
         ></iframe>
@@ -53,18 +56,13 @@ export async function getServerSideProps({ res, query }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        appDefaultHeader:  Math.random() > 0.5 ? appHeaderKey1: appHeaderKey2,
       },
     }
   );
 
   const data = await response.json();
 
-  console.log(
-    leadOwner_userCode,
-    "hhhhhhh",
-    `${baseURL}webViewPreviewLeadScreenshot?leadId=${leadId}&userCode=${leadOwner_userCode}`,
-    data
-  );
   const result = data?.result && data?.result?.length && data?.result[0];
 
   return {

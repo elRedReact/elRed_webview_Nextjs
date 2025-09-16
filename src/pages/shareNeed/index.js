@@ -1,11 +1,27 @@
 import NotFound from "@/component/notFound";
-import { baseURL, webviewURL } from "@/config";
+import {
+  baseURL,
+  webviewURL,
+  appDefaultHeader,
+  appHeaderKey1,
+  appHeaderKey2,
+} from "@/config";
 import Head from "next/head";
 
 function ShareNeed(props) {
   const { data, needId, userCode } = props;
 
-  console.log(data, "...................");
+  console.log(data,'data')
+  // console.log(data?.titleTags?.join(", "),'propp')
+  const formattedTitleTags =
+  data?.titleTags?.length === 1
+    ? data?.titleTags?.[0]
+    : data?.titleTags?.join(", ");
+
+  const truncatedTitleTags =
+  formattedTitleTags?.length > 32
+    ? `${formattedTitleTags?.substring(0, 32)}...`
+    : formattedTitleTags;
 
   if (!userCode && !needId) {
     return <NotFound />;
@@ -13,7 +29,18 @@ function ShareNeed(props) {
   return (
     <>
       <Head>
-        <meta property="og:title" content={data.needDescription} key="title" />
+        <link rel="icon" href="/favicon.ico" />
+        {/* <meta property="og:title" content={data.needDescription || "No Description Added"} key="title" /> */}
+        <meta
+          property="og:title"
+          content={
+            data?.needType === "introduction"
+            ? `Open to collaborate on ${truncatedTitleTags}`
+            : data.needDescription ||`${data?.firstname} needs help with something. Tap to know more!`
+          }
+          key="title"
+        />
+
         {data?.otherTags?.length && (
           <meta
             property="og:description"
@@ -58,6 +85,7 @@ export async function getServerSideProps({ res, query }) {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+        appDefaultHeader: Math.random() > 0.5 ? appHeaderKey1 : appHeaderKey2,
       },
     }
   );
@@ -66,7 +94,6 @@ export async function getServerSideProps({ res, query }) {
 
   const result = data?.result && data?.result?.length && data?.result[0];
 
-  console.log(result);
 
   return {
     props: { data: result, userCode: needOwner_userCode, needId }, // will be passed to the page component as props

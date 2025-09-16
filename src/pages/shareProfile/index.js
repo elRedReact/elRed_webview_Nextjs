@@ -1,11 +1,25 @@
 import { useEffect } from "react";
-import { baseURL, webviewURL } from "@/config";
+import { baseURL, webviewURL, appDefaultHeader, appHeaderKey1, appHeaderKey2 } from "@/config";
 import Head from "next/head";
 import NotFound from "@/component/notFound";
 
 function ShareProfile(props) {
-  const { data, userCode } = props;
+  const { data, userCode, networkCode } = props;
 
+  const truncateWithEllipses = (text) => {
+    if (!text) return "";
+    let title = text?.split(' ');
+    let indexWithApostropheS = title.findIndex(word => word.includes("'s"));
+    let cardName = title.slice(2, indexWithApostropheS + 1).join(' ')?.replace(/'s/g, '');
+    if(cardName?.length <= 10)
+      return text
+    else{
+      cardName = cardName?.slice(0, 10) + "...'s";
+      title = title?.slice(0, 2)?.join(' ') + ' ' + cardName + ' ' + title?.slice(-4).join(' ')
+      return title;
+    }
+  }
+  
   useEffect(() => {
     window?.addEventListener('message', (event) => {
       if (event?.data?.message === 'openDialPad') {
@@ -15,15 +29,17 @@ function ShareProfile(props) {
     });
   }, []);
 
-  if (!userCode) {
+  if (!userCode && !networkCode) {
     return <NotFound />;
   }
+
   return (
     <>
       <Head>
+        <link rel="icon" href="/favicon.ico" />
         <meta
           property="og:title"
-          content={data?.profileTitle ?? ""}
+          content={truncateWithEllipses(data?.profileTitle ?? "")}
           key="title"
         />
         <meta
@@ -43,7 +59,8 @@ function ShareProfile(props) {
       <div className="d-flex align-item-center justify-content-center height-100">
         <iframe
           allow="web-share"
-          src={`${webviewURL}?userCode=${userCode}`}
+          src={userCode ? `${webviewURL}?userCode=${userCode}` : 
+            `${webviewURL}/network-profile?networkCode=${networkCode}`}
           className="iframe-cont"
           title=""
         ></iframe>
@@ -52,32 +69,53 @@ function ShareProfile(props) {
   );
 }
 
-export async function getServerSideProps({ res, query }) {
+export async function getServerSideProps({ req, res, query }) {
   res.setHeader("Cache-Control", "no-store");
+  // const headers = new Headers();
+  // headers.append('Content-Type', 'application/json');
+  // headers.append('Accept', "application/json");
+  // headers.append('X-ElRed-Test', Math.random() > 0.5 ? 'elRed-57c191ca14f63283': 'elRed-6d41c61445eb8f56')
+
+  // const requestOptions = {
+  //   cache: "no-cache",
+  //   method: 'POST',
+  //   headers: headers
+  // };
+  
   const userCode = query.userCode ?? "";
+  const networkCode = query.networkCode ?? "";
 
-  console.log(
-    `${baseURL}noSessionPreviewCardScreenshot?userCode=${userCode}`,
-    "hehehe"
-  );
+  let url = `${baseURL}`;
+  if (userCode) {
+    url += `noSessionPreviewCardScreenshot?userCode=${userCode}`;
+  }
 
-  const response = await fetch(
-    `${baseURL}noSessionPreviewCardScreenshot?userCode=${userCode}`,
+  if (networkCode) {
+      url += `webviewGetNetworkScreenshot?networkCode=${networkCode}`;
+  }
+
+  const response = await fetch( url,
     {
       cache: "no-cache",
-      method: "POST",
+      method: userCode ? "POST" : "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
+         appDefaultHeader:  Math.random() > 0.5 ? appHeaderKey1: appHeaderKey2,
       },
     }
   );
+
+  // const response = await fetch(request);
+
+  // console.log("request header after ===========>",req, req.headers,  'request header after')
+  // console.log("=============>" , response.headers, 'response header after')
 
   const data = await response.json();
   const result = data?.result && data?.result?.length && data?.result[0];
 
   return {
-    props: { data: result, userCode: userCode }, // will be passed to the page component as props
+    props: { data: result, userCode: userCode, networkCode: networkCode }, // will be passed to the page component as props
   };
 }
 export default ShareProfile;
