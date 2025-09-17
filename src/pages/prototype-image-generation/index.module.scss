@@ -1,0 +1,231 @@
+@use "/src/styles/variables.scss" as *;
+
+@font-face {
+  font-family: "AvenirPro-medium";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "AvenirPro-demi";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Demi.otf")
+    format("opentype");
+}
+@font-face {
+  font-family: "AvenirPro-regular";
+  src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Regular.otf")
+    format("opentype");
+}
+
+.main_container {
+  max-width: 375px;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $comment_likes;
+  font-family: "AvenirPro-demi";
+  padding-top: 20px;
+}
+
+.content_div {
+  background-color: $comment_likes;
+  overflow: auto;
+  padding: 40px 20px;
+}
+
+.header_div {
+  background: $theme_bg;
+  max-width: 375px;
+  width: 100%;
+  margin: 0 auto;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: 45px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.top_heading {
+  font-family: "AvenirPro-demi";
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+}
+
+.image_div {
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.text_div {
+  margin-top: 20px;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+}
+.preview_div {
+  margin-top: 20px;
+  background: white;
+  min-height: 240px;
+  padding: 10px;
+  border-radius: 12px;
+  position: relative;
+}
+
+.image_text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.preview_image_text {
+  // position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img_type {
+  letter-spacing: -0.3px;
+}
+
+.inner_div_img {
+  background: $theme_red;
+  margin-top: 10px;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner_div_img_selected {
+  background: $theme_red;
+  opacity: 50%;
+  margin-top: 10px;
+  border-radius: 6px;
+  padding: 10px;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file_name {
+  display: inline-block; /* or flex if you need */
+  max-width: 250px; /* adjust based on your layout */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  // cursor: pointer;
+}
+
+.image_gen_input {
+  width: 100%;
+  outline: none;
+  resize: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  padding: 10px;
+  font-family: "AvenirPro-regular";
+  font-size: 14px;
+  border: 1px solid #ababab;
+}
+
+.image_gen_input::placeholder {
+  color: #c3c3c3;
+}
+
+.button_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.generate_btn {
+  background: $theme_red;
+  padding: 10px 40px;
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.disabled_btn {
+  background: $theme_red_disabled;
+  padding: 10px 40px;
+  color: white;
+  border-radius: 50px;
+  cursor: default;
+}
+
+.loader_div {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 👈 centers it perfectly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #f03355) content-box;
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 20deg,
+      #0000 21deg 36deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l4 1s infinite steps(10);
+}
+@keyframes l4 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.validation{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.no_img_yet{
+  text-align: center; 
+  padding-top: 80px;
+  color: rgb(173, 173, 173);
+  font-size: 14px;
+}
+
+.generating_msg{
+  font-size: 10px;
+  margin-top: 10px;
+  color: #363636;
+}
+@media (max-width: 500px) {
+  .main_container {
+    max-width: 500px;
+  }
+}
