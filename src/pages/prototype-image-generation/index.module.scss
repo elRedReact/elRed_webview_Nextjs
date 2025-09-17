@@ -224,6 +224,22 @@
   margin-top: 10px;
   color: #363636;
 }
+
+.button_main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download_btn{
+  background: $theme_red;
+  max-width: fit-content;
+  color: white;
+  padding: 6px 20px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
 @media (max-width: 500px) {
   .main_container {
     max-width: 500px;

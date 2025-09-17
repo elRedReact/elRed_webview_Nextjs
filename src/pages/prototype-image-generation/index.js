@@ -32,7 +32,7 @@ const PrototypeImageGeneration = () => {
     let value = e.target.value;
 
     // iOS double-space → "." fix
-    value = value.replace(/\.{1}(?=\s*$)/, " "); // agar end me '.' aaya double space ke baad → usko space bana do
+    value = value.replace(/\.{1}(?=\s*$)/, " ");
 
     // Prevent leading spaces
     if (!value.trimStart()) {
@@ -103,6 +103,21 @@ const PrototypeImageGeneration = () => {
       setGenerating(false);
     }
   };
+
+  const handleDownload = () => {
+    const imgUrl = data?.result?.[0]?.generatedImage;
+    if (!imgUrl) return;
+  
+    const proxyUrl = `/api/download-image?url=${encodeURIComponent(imgUrl)}`;
+  
+    const link = document.createElement("a");
+    link.href = proxyUrl;
+    link.download = "generated-image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
 
   return (
     <>
@@ -195,21 +210,40 @@ const PrototypeImageGeneration = () => {
                 {generating ? "Generating" : "Generated"} Image Preview
               </div>
             </div>
-    
+
             <div className="image-preview">
               {generating ? (
                 // loader wala part jo aap already use kar rahe ho
-                  <div className={style.loader_div}>
-                    <div className={style.loader}></div>
-                    <p className={style.generating_msg}>Generating Image...</p>
-                  </div>
+                <div className={style.loader_div}>
+                  <div className={style.loader}></div>
+                  <p className={style.generating_msg}>Generating Image...</p>
+                </div>
               ) : data?.result ? (
-                // jab image generate ho gayi
-                <img
-                  src={data?.result?.[0]?.generatedImage}
-                  alt="Generated"
-                  style={{ width: "100%", padding: "10px 0" }}
-                />
+                <>
+                  {/* // jab image generate ho gayi */}
+                  {/* <img
+                    src={data?.result?.[0]?.generatedImage}
+                    alt="Generated"
+                    style={{ width: "100%", padding: "10px 0" }}
+                  />
+                  <div className={style.button_main}>
+                    <div className={style.download_btn}>Download</div>
+                  </div> */}
+
+                  <img
+                    src={data?.result?.[0]?.generatedImage}
+                    alt="Generated"
+                    style={{ width: "100%", padding: "10px 0" }}
+                  />
+                  <div className={style.button_main}>
+                    <button
+                      onClick={handleDownload}
+                      className={style.download_btn}
+                    >
+                      Download
+                    </button>
+                  </div>
+                </>
               ) : (
                 // jab abhi tak image generate hi nahi hui
                 <p className={style.no_img_yet}>No Image Generated Yet</p>
