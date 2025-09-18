@@ -107,9 +107,9 @@ const PrototypeImageGeneration = () => {
   const handleDownload = () => {
     const imgUrl = data?.result?.[0]?.generatedImage;
     if (!imgUrl) return;
-  
+
     const proxyUrl = `/api/download-image?url=${encodeURIComponent(imgUrl)}`;
-  
+
     const link = document.createElement("a");
     link.href = proxyUrl;
     link.download = "generated-image.png";
@@ -117,7 +117,6 @@ const PrototypeImageGeneration = () => {
     link.click();
     document.body.removeChild(link);
   };
-  
 
   return (
     <>
@@ -134,20 +133,24 @@ const PrototypeImageGeneration = () => {
               <div className={style.img_type}>
                 {imageName ? "Selected Image" : "Upload Image"}
               </div>
-              {imageName && (
-                <IoIosCloseCircle
-                  size={26}
-                  color="#e72d38"
-                  style={{ cursor: "pointer" }}
-                  onClick={() => setImageName("")}
-                />
-              )}
+              {generating
+                ? ""
+                : imageName && (
+                    <IoIosCloseCircle
+                      size={26}
+                      color="#e72d38"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setImageName("")}
+                    />
+                  )}
             </div>
             <div
               className={
-                imageName ? style.inner_div_img_selected : style.inner_div_img
+                imageName || generating
+                  ? style.inner_div_img_selected
+                  : style.inner_div_img
               }
-              onClick={!imageName ? handleClick : null}
+              onClick={generating ? null : imageName ? null : handleClick}
             >
               <div className={style.file_name}>
                 {imageName ? imageName : "Click to select an image"}
@@ -177,6 +180,7 @@ const PrototypeImageGeneration = () => {
               value={imagePrompt}
               onChange={handlePromptChange}
               maxLength={500}
+              disabled={generating}
             />
             {/* {error && <div className={style.error_text}>{error}</div>} */}
             <div className={style.validation}>
@@ -211,6 +215,35 @@ const PrototypeImageGeneration = () => {
               </div>
             </div>
 
+            {/* <div className="image-preview">
+              {generating ? (
+                // loader wala part jo aap already use kar rahe ho
+                <div className={style.loader_div}>
+                  <div className={style.loader}></div>
+                  <p className={style.generating_msg}>Generating Image...</p>
+                </div>
+              ) : data?.result ? (
+                <>
+                  <img
+                    src={data?.result?.[0]?.generatedImage}
+                    alt="Generated"
+                    style={{ width: "100%", padding: "10px 0" }}
+                  />
+                  <div className={style.button_main}>
+                    <button
+                      onClick={handleDownload}
+                      className={style.download_btn}
+                    >
+                      Download
+                    </button>
+                  </div>
+                </>
+              ) : (
+                // jab abhi tak image generate hi nahi hui
+                <p className={style.no_img_yet}>No Image Generated Yet</p>
+              )}
+            </div> */}
+
             <div className="image-preview">
               {generating ? (
                 // loader wala part jo aap already use kar rahe ho
@@ -220,22 +253,21 @@ const PrototypeImageGeneration = () => {
                 </div>
               ) : data?.result ? (
                 <>
-                  {/* // jab image generate ho gayi */}
-                  {/* <img
-                    src={data?.result?.[0]?.generatedImage}
-                    alt="Generated"
-                    style={{ width: "100%", padding: "10px 0" }}
-                  />
-                  <div className={style.button_main}>
-                    <div className={style.download_btn}>Download</div>
-                  </div> */}
-
                   <img
                     src={data?.result?.[0]?.generatedImage}
                     alt="Generated"
                     style={{ width: "100%", padding: "10px 0" }}
                   />
                   <div className={style.button_main}>
+                    <button
+                      onClick={() =>
+                        window.open(data?.result?.[0]?.generatedImage, "_blank")
+                      }
+                      className={style.view_btn} // add a style for this
+                    >
+                      View
+                    </button>
+
                     <button
                       onClick={handleDownload}
                       className={style.download_btn}

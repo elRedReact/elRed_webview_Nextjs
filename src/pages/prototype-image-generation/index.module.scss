@@ -230,6 +230,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
 }
 
 .download_btn{
@@ -239,6 +240,16 @@
   padding: 6px 20px;
   border-radius: 50px;
   border: none;
+  cursor: pointer;
+}
+
+.view_btn{
+  background: white;
+  border: 1px solid black;
+  max-width: fit-content;
+  color: black;
+  padding: 5px 20px;
+  border-radius: 50px;
   cursor: pointer;
 }
 @media (max-width: 500px) {
