@@ -138,6 +138,7 @@
   font-family: "AvenirPro-regular";
   font-size: 14px;
   border: 1px solid #ababab;
+  background: white;
 }
 
 .image_gen_input::placeholder {
@@ -242,6 +243,9 @@
 }
 @media (max-width: 500px) {
   .main_container {
+    max-width: 500px;
+  }
+  .header_div{
     max-width: 500px;
   }
 }
