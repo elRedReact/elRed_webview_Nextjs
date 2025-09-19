@@ -35,7 +35,7 @@ const PrototypeImageGeneration = () => {
     let value = e.target.value;
 
     // iOS double-space → "." fix
-    value = value.replace(/\.{1}(?=\s*$)/, " ");
+    // value = value.replace(/\.{1}(?=\s*$)/, " ");
 
     // Prevent leading spaces
     if (!value.trimStart()) {
