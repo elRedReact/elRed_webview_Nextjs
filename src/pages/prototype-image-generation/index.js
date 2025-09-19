@@ -4,6 +4,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 import Image from "next/image";
 import logo from "../../../public/logo.svg";
 import axios from "axios";
+import { MdClear } from "react-icons/md";
 
 const PrototypeImageGeneration = () => {
   const fileInputRef = useRef(null);
@@ -13,6 +14,8 @@ const PrototypeImageGeneration = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [generating, setGenerating] = useState(false);
   const [data, setData] = useState([]);
+  const [errorMsg, setErroMsg] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleClick = () => {
     fileInputRef.current.click(); // trigger hidden input
@@ -94,14 +97,21 @@ const PrototypeImageGeneration = () => {
       setData(res?.data);
 
       // ✅ Reset fields after success
-      setImagePrompt("");
-      setImageName("");
-      setSelectedFile(null);
     } catch (error) {
       console.error("API error:", error);
+      setErroMsg(true);
+      setMessage(error?.response?.data?.message);
     } finally {
       setGenerating(false);
     }
+  };
+
+  const handleReset = () => {
+    setImagePrompt("");
+    setImageName("");
+    setSelectedFile(null);
+    setData([]);
+    setErroMsg(false);
   };
 
   const handleDownload = () => {
@@ -168,7 +178,10 @@ const PrototypeImageGeneration = () => {
           {/* DIV FOR ADDING THE PROMPT */}
           <div className={style.text_div}>
             <div className={style.image_text}>
-              <div className={style.img_type}>Image Generation Prompt</div>
+              <div className={style.img_type}>
+                Image Generation Prompt{" "}
+                <span className={style.important}>*</span>
+              </div>
             </div>
             <textarea
               className={style.image_gen_input}
@@ -213,6 +226,16 @@ const PrototypeImageGeneration = () => {
               <div className={style.img_type}>
                 {generating ? "Generating" : "Generated"} Image Preview
               </div>
+              {/* {data?.length !== 0 || errorMsg && (
+                <div className={style.clear_btn} onClick={handleReset}>
+                  Clear <MdClear size={14} />
+                </div>
+              )} */}
+              {(data?.length !== 0 || errorMsg) && (
+                <div className={style.clear_btn} onClick={handleReset}>
+                  Clear <MdClear size={14} />
+                </div>
+              )}
             </div>
 
             {/* <div className="image-preview">
@@ -278,7 +301,9 @@ const PrototypeImageGeneration = () => {
                 </>
               ) : (
                 // jab abhi tak image generate hi nahi hui
-                <p className={style.no_img_yet}>No Image Generated Yet</p>
+                <p className={style.no_img_yet}>
+                  {errorMsg ? message : "No Image Generated Yet"}
+                </p>
               )}
             </div>
           </div>

@@ -142,7 +142,8 @@
 }
 
 .image_gen_input::placeholder {
-  color: #c3c3c3;
+  color: #a2a2a2;
+  font-family: "AvenirPro-medium";
 }
 
 .button_div {
@@ -215,7 +216,7 @@
 
 .no_img_yet{
   text-align: center; 
-  padding-top: 80px;
+  padding-top: 70px;
   color: rgb(173, 173, 173);
   font-size: 14px;
 }
@@ -251,6 +252,19 @@
   padding: 5px 20px;
   border-radius: 50px;
   cursor: pointer;
+}
+
+.clear_btn{
+  background: $theme_red;
+  font-size: 10px;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 160px;
+  cursor: pointer;
+}
+
+.important{
+  color: $theme_red;
 }
 @media (max-width: 500px) {
   .main_container {
