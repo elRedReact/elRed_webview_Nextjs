@@ -296,7 +296,7 @@ const PrototypeImageGeneration = () => {
   const [errorMsg, setErroMsg] = useState(false);
   const [message, setMessage] = useState("");
 
-  console.log('fixed again...')
+  console.log('fixed nw...')
   // ✅ New state for dropdown
   const [adType, setAdType] = useState("Product Ad");
 
@@ -340,7 +340,7 @@ const PrototypeImageGeneration = () => {
   };
 
   const handleGenerate = async () => {
-    setImageName('')
+    setData([])
     setGenerating(true);
 
     if (imagePrompt.length < 3) {
