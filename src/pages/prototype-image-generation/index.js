@@ -466,7 +466,7 @@ const PrototypeImageGeneration = () => {
           {/* ✅ Dropdown for Ad Type */}
           <div className={style.text_div}>
             <div className={style.image_text}>
-              <div className={style.img_type}>Select Model Type</div>
+              <div className={style.img_type}>Image Type</div>
             </div>
             <select
               className={style.image_gen_input}
