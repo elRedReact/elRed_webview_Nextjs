@@ -277,7 +277,6 @@
 
 // export default PrototypeImageGeneration;
 
-
 import { useRef, useState } from "react";
 import style from "./index.module.scss";
 import { IoIosCloseCircle } from "react-icons/io";
@@ -297,6 +296,7 @@ const PrototypeImageGeneration = () => {
   const [errorMsg, setErroMsg] = useState(false);
   const [message, setMessage] = useState("");
 
+  console.log('fixed...')
   // ✅ New state for dropdown
   const [adType, setAdType] = useState("Product Ad");
 
@@ -434,7 +434,10 @@ const PrototypeImageGeneration = () => {
                       size={26}
                       color="#e72d38"
                       style={{ cursor: "pointer" }}
-                      onClick={() => setImageName("")}
+                      onClick={() => {
+                        setImageName("");
+                        setSelectedFile(null);
+                      }}
                     />
                   )}
             </div>
@@ -462,9 +465,7 @@ const PrototypeImageGeneration = () => {
           {/* ✅ Dropdown for Ad Type */}
           <div className={style.text_div}>
             <div className={style.image_text}>
-              <div className={style.img_type}>
-                Select Model Type
-              </div>
+              <div className={style.img_type}>Select Model Type</div>
             </div>
             <select
               className={style.image_gen_input}
