@@ -295,6 +295,8 @@ const PrototypeImageGeneration = () => {
   const [data, setData] = useState([]);
   const [errorMsg, setErroMsg] = useState(false);
   const [message, setMessage] = useState("");
+  const [errorData, setErrorData] = useState([]);
+  
 
   console.log('fixed string...')
   // ✅ New state for dropdown
@@ -383,6 +385,7 @@ const PrototypeImageGeneration = () => {
       // ✅ Reset fields after success (if needed)
     } catch (error) {
       console.error("API error:", error);
+      setErrorData(error?.response)
       setErroMsg(true);
       setMessage(error?.response?.data?.message);
     } finally {
@@ -538,8 +541,9 @@ const PrototypeImageGeneration = () => {
               )}
             </div>
 
-            Generating - {generating.toString()} <br/>
+            {/* Generating - {generating.toString()} <br/>
             Data - {JSON.stringify(data)}
+            Data - {JSON.stringify(data)} */}
 
 
             <div className="image-preview">
