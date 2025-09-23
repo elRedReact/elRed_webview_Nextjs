@@ -245,6 +245,18 @@
   cursor: pointer;
 }
 
+.download_btn_disabled{
+  background: $theme_red_disabled;
+  max-width: fit-content;
+  color: white;
+  padding: 6px 20px;
+  border-radius: 50px;
+  border: none;
+  // cursor: pointer;
+}
+
+
+
 .view_btn{
   background: white;
   border: 1px solid black;
