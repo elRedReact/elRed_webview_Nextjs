@@ -538,6 +538,10 @@ const PrototypeImageGeneration = () => {
               )}
             </div>
 
+            Generating - {generating} <br/>
+            Data - {data}
+
+
             <div className="image-preview">
               {generating ? (
                 <div className={style.loader_div}>
