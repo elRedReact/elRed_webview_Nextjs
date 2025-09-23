@@ -296,7 +296,7 @@ const PrototypeImageGeneration = () => {
   const [errorMsg, setErroMsg] = useState(false);
   const [message, setMessage] = useState("");
 
-  console.log('fixed nw...')
+  console.log('fixed string...')
   // ✅ New state for dropdown
   const [adType, setAdType] = useState("Product Ad");
 
@@ -538,8 +538,8 @@ const PrototypeImageGeneration = () => {
               )}
             </div>
 
-            Generating - {generating} <br/>
-            Data - {data}
+            Generating - {generating.toString()} <br/>
+            Data - {JSON.stringify(data)}
 
 
             <div className="image-preview">
