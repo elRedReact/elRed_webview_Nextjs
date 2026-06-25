@@ -5,7 +5,7 @@ import { LogoutProvider } from "@/context/LogoutContext";
 import Head from "next/head";
 
 
-console.log("tashaf account pretest...");
+console.log("main account pretest...");
 export default function App({ Component, pageProps }) {
 
   return (
