@@ -17,14 +17,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); // ✅ Perfect centering
+
   width: 100%;
-  // max-width: 375px;
+  max-width: 375px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
 .loader_icon {
   display: flex;
   align-items: center;

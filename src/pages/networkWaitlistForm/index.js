@@ -29,8 +29,6 @@ const NetworkWaitlistForm = () => {
 
   const [isEmailValid, setIsEmailValid] = useState(true); // Track email validity
   const [isNameValid, setIsNameValid] = useState(true); // Track name validity
-  const [isCompanyValid, setIsCompanyValid] = useState(true); // Track name validity
-
 
   const emailRegex = /^[^\s@]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+){1,2}$/;
   const emojiRegex = /[\p{Emoji_Presentation}\p{Extended_Pictographic}]/gu; // Regex to detect emojis
@@ -43,8 +41,29 @@ const NetworkWaitlistForm = () => {
     Object.values(formData).every((value) => value.trim() !== "") &&
     isPhoneValid &&
     isEmailValid &&
-    isNameValid &&
-    isCompanyValid;
+    isNameValid;
+
+  // const onChangeHandler = (e) => {
+  //   const { name, value } = e.target;
+
+  //   // Remove emojis and spaces from the input
+  //   const sanitizedValue = value.replace(emojiRegex, "");
+
+  //   // For the "name" field, validate against the regex
+  //   if (name === "name" && !nameRegex.test(sanitizedValue)) {
+  //     return; // Do nothing if the value contains invalid characters
+  //   }
+
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [name]: sanitizedValue, // Use the sanitized value
+  //   }));
+
+  //   if (name === "email") {
+  //     // Validate email and set validity
+  //     setIsEmailValid(emailRegex.test(sanitizedValue));
+  //   }
+  // };
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -57,13 +76,9 @@ const NetworkWaitlistForm = () => {
       if (!nameRegex.test(sanitizedValue)) {
         return; // Prevent invalid characters
       }
-      // Set validity only after user stops typing (minimum 3 characters)
-      setIsNameValid(sanitizedValue.trim().length >= 3);
-    }
   
-    if (name === "companyName") {
-      // Check if the company name meets the minimum length requirement, ignoring spaces
-      setIsCompanyValid(sanitizedValue.trim().length >= 2);
+      // Set validity only after user stops typing (minimum 3 characters)
+      setIsNameValid(sanitizedValue.length >= 3);
     }
   
     setFormData((prev) => ({
@@ -75,6 +90,9 @@ const NetworkWaitlistForm = () => {
       setIsEmailValid(emailRegex.test(sanitizedValue));
     }
   };
+  
+
+  console.log(isNameValid,'---')
 
   const handleChange = (e, value, name) => {
     let phoneNumber = e?.replace(value?.dialCode, "").trim();
@@ -100,10 +118,8 @@ const NetworkWaitlistForm = () => {
       phone: "",
       countryCode: "+91",
     });
-    setIsPhoneValid(true);
+    setIsPhoneValid(false);
     setIsEmailValid(true);
-    setIsCompanyValid(true);
-    setIsNameValid(true)
   };
 
   const submitForm = async () => {
@@ -146,10 +162,8 @@ const NetworkWaitlistForm = () => {
           phone: "",
           countryCode: "91",
         });
-        setIsPhoneValid(true);
+        setIsPhoneValid(false);
         setIsEmailValid(true);
-        setIsCompanyValid(true);
-        setIsNameValid(true)
       }
     } catch (error) {
       if (error?.response?.data?.errorCode === 111) {
@@ -220,11 +234,7 @@ const NetworkWaitlistForm = () => {
             onChange={onChangeHandler}
             type={"text"}
           />
-          {!isCompanyValid && (
-            <div className={styles.error_message} style={{zIndex:444}}>
-              Company name should be of minimum 2 letters
-            </div>
-          )}
+          
           <div className={styles.input_lable}>
             Phone number <span className={styles.imp}>*</span>
           </div>

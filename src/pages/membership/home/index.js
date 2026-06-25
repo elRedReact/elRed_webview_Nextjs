@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./index.module.scss";
+import styles from "./index.module.css";
 import PaymentHeader from "@/component/PaymentHeader/PaymentHeader";
 import LogoutPayment from "@/component/LogoutPayment/LogoutPayment";
 import { useLogout } from "@/context/LogoutContext";
@@ -22,9 +22,8 @@ import BrowserNotSupported from "@/component/BrowserNotSupported/BrowserNotSuppo
 import Button from "react-bootstrap/Button";
 import ToastMessage from "@/component/ToastMessage/ToastMessage";
 import { useRouter } from "next/navigation";
-import MembershipLayout from "@/component/MembershipLayout";
 
-const HomePage = () => {
+const Payments = () => {
   const searchParams = useSearchParams();
   const { isOpen, setIsOpen } = useLogout();
   const router = useRouter();
@@ -67,7 +66,7 @@ const HomePage = () => {
 
         const token = localStorage.getItem("accessToken");
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_MEMBERSHIP_API_URL}/payment/getNetworkMembershipStatus`,
+          "https://uftw2680orcg.elred.io/payment/getNetworkMembershipStatus",
           { networkClusterCode: nccode },
           {
             headers: {
@@ -159,12 +158,9 @@ const HomePage = () => {
     return <BrowserNotSupported />;
   }
 
-
   return (
     <div className={styles.container_div}>
-      <div className={styles.mobile_header}>
-        <PaymentHeader />
-      </div>
+      <PaymentHeader />
 
       {!state.isLoading && state.errorCode == 12 && <InvalidNetworkComp />}
       {!state.hasNetworkCode && state.errorCode == null && <HomeComponent />}
@@ -198,15 +194,4 @@ const HomePage = () => {
   );
 };
 
-// Define the layout function
-const getLayout = (page) => <MembershipLayout>{page}</MembershipLayout>;
-
-// ✅ Apply withAuth
-const ProtectedPage = withAuth(HomePage);
-
-// ✅ Attach layout to the final wrapped component
-ProtectedPage.getLayout = getLayout;
-
-export default ProtectedPage;
-
-// export default withAuth(HomePage);
+export default withAuth(Payments);

@@ -1,0 +1,193 @@
+@font-face {
+    font-family: "AvenirPro-regular";
+    src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Regular.otf")
+      format("opentype");
+  }
+  
+  @font-face {
+    font-family: "AvenirPro-medium";
+    src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Medium.otf")
+      format("opentype");
+  }
+  
+  @font-face {
+    font-family: "AvenirPro-bold";
+    src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Bold.otf")
+      format("opentype");
+  }
+  
+  @font-face {
+    font-family: "AvenirPro-demi";
+    src: url("../../assets/fonts/Avenir_Next_Pro/AvenirNextLTPro-Demi.otf")
+      format("opentype");
+  }
+  
+  /* ================= GLOBAL SCROLL FIX ================= */
+  
+  /* html,
+  body {
+    height: 100%;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+   */
+  /* ================= MAIN LAYOUT ================= */
+  
+  .main {
+    max-width: 375px;
+    margin: auto;
+    background-color: #0d0d0d;
+  }
+  
+  /* 🔥 FIXED: Removed height:100vh and overflow */
+  .main_cover {
+    min-height: 100dvh; /* mobile safe viewport */
+    max-width: 375px;
+    margin: auto;
+    color: #fff;
+    background-color: #0d0d0d;
+  }
+  
+  /* ================= HEADER ================= */
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    font-family: "AvenirPro-medium";
+    font-size: 16px;
+  }
+  
+  .headerTitle {
+    font-size: 16px;
+    font-family: "AvenirPro-medium";
+  }
+  
+  /* ================= BANNER ================= */
+  
+  .bannerWrapper {
+    width: 100%;
+  }
+  
+  .bannerImage {
+    width: 100%;
+    height: 445px;
+    object-fit: cover;
+  }
+  
+  /* ================= CONTENT ================= */
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .eventTitle {
+    font-size: 36px;
+    font-family: "AvenirPro-medium";
+    margin-bottom: 24px;
+    margin-top: 10px;
+  }
+  
+  .eventDescription {
+    font-size: 18px;
+    line-height: 27px;
+    color: #fff;
+    margin-bottom: 24px;
+    font-family: "AvenirPro-regular";
+  }
+  
+  .infoItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #e6e6e6;
+    font-family: "AvenirPro-medium";
+  }
+  
+  /* ================= SECTION ================= */
+  
+  .sectionTitle {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    font-family: "AvenirPro-demi";
+    color: #777777;
+  }
+  
+  /* ================= SPEAKER ================= */
+  
+  .speakerRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .speakerImage {
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #cccccc;
+  }
+  
+  .speakerName {
+    font-size: 16px;
+    font-family: "AvenirPro-medium";
+  }
+  
+  .speakerDesc {
+    font-size: 16px;
+    line-height: 24px;
+    margin-top: 10px;
+    color: #ffffff;
+    font-family: "AvenirPro-regular";
+  }
+  
+  /* ================= LINKS ================= */
+  
+  .hrefLink {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    text-decoration: none;
+    color: #2f80ed;
+  }
+  
+  .hrefLink span {
+    font-size: 14px;
+    font-family: "AvenirPro-demi";
+  }
+  
+  /* ================= WHO CAN ATTEND ================= */
+  
+  .attendText {
+    font-size: 14px;
+    display: block;
+    font-family: "AvenirPro-medium";
+  }
+  
+  /* ================= CTA ================= */
+  
+  .joinNetwork {
+    text-align: center;
+    font-size: 18px;
+    font-family: "AvenirPro-medium";
+    color: #e72d38;
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  
+  /* ================= RESPONSIVE ================= */
+  
+  @media (max-width: 500px) {
+    .main,
+    .main_cover {
+      max-width: 100%;
+    }
+  
+    .bannerImage {
+      width: 100%;
+    }
+  }
