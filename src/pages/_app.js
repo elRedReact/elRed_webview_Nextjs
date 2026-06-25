@@ -5,7 +5,7 @@ import { LogoutProvider } from "@/context/LogoutContext";
 import Head from "next/head";
 
 
-console.log("Env: Pretest | Account: ProductionPrototype");
+console.log("Env: Pretest | Account: ProductionPrototype - new");
 export default function App({ Component, pageProps }) {
 
   return (
