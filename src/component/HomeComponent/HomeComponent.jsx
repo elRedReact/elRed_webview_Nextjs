@@ -1,6 +1,6 @@
 import React from "react";
 import welcome from "../../../public/welcome.svg";
-import styles from './homecomponent.module.scss';
+import styles from './homecomponent.module.css';
 import Image from "next/image";
 
 const HomeComponent = () => {

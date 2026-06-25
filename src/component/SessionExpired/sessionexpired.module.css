@@ -15,7 +15,6 @@
         align-items: center;
         justify-content: center; */
   flex-direction: column;
-  position: relative;
 }
 
 .content_div {
@@ -72,11 +71,4 @@
   font-family: "AvenirPro-md";
   font-weight: 500;
   cursor: pointer;
-}
-
-
-@media (max-width:500px){
-  .container_div{
-    position: unset;
-  }
 }

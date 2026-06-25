@@ -2,8 +2,7 @@ import Head from "next/head";
 import { deleteUserURL } from "@/config";
 
 function DeleteUSerAccount() {
-
-  console.log(';;;;;;')
+  console.log('..')
   return (
     <>
      <Head>
@@ -12,8 +11,8 @@ function DeleteUSerAccount() {
         <meta property="og:image:width" content="300" />
         <meta property="og:image:height" content="300" />
 
-        <meta property="og:title" content={"el RED Delete Account"} key="title" />
-        <meta property="og:description" content={"el RED Webview Delete Account"} />
+        <meta property="og:title" content={"Elred Delete Account"} key="title" />
+        <meta property="og:description" content={"Elred Webview Delete Account"} />
       </Head>
 
       <div className="d-flex align-item-center justify-content-center height-100">
