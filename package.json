@@ -2,6 +2,9 @@
   "name": "share-component",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev --port 3000",
     "build": "next build",
@@ -19,6 +22,7 @@
     "react-bootstrap": "^2.10.10",
     "react-device-detect": "^2.2.3",
     "react-dom": "18.2.0",
+    "react-icons": "^5.5.0",
     "react-loading-skeleton": "^3.5.0",
     "react-otp-input": "^3.1.1",
     "react-phone-input-2": "^2.15.1",

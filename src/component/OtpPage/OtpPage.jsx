@@ -3,15 +3,17 @@ import _ from "lodash";
 import styles from "./OtpPage.module.scss";
 import OTPInput from "react-otp-input";
 import axios from "axios";
+import toast from "react-simple-toasts";
 import { useCountdownTimer } from "@/Hooks/useCountDownTimer";
 import TitleText from "../TitleText/TitleText";
 import { useRouter, useSearchParams } from "next/navigation";
+import { formatPhoneNumber } from "@/lib/functions";
 import ToastMessage from "../ToastMessage/ToastMessage";
 import PaymentHeader from "../PaymentHeader/PaymentHeader";
+import FullScreenLoader from "../FullScreenLoader/FullScreenLoader";
 import Image from "next/image";
 import backButton from "../../../public/ic_back.svg";
 import OTPloader from "../OTPloader/OTPloader";
-import logo from "../../../public/logo.svg";
 
 const OtpPage = ({ resendOtp, backToLoginPage, email, maskedEmail }) => {
   const { REACT_APP_API_ENDPOINT } = process.env;
@@ -42,7 +44,7 @@ const OtpPage = ({ resendOtp, backToLoginPage, email, maskedEmail }) => {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_MEMBERSHIP_API_URL}/payment/verifyEmailOTP`,
+        `https://uftw2680orcg.elred.io/payment/verifyEmailOTP`,
         data
       );
       localStorage.setItem("accessToken", res?.data?.result?.[0]?.accessToken);
@@ -58,17 +60,17 @@ const OtpPage = ({ resendOtp, backToLoginPage, email, maskedEmail }) => {
       if (error?.response?.data?.errorCode == -1) {
         setOtp("");
         setIncorrectOtp(true);
-        setLoading(false);
+        setLoading(false)
       } else if (error?.response?.data?.errorCode === 115) {
         setErrorMsg(error?.response?.data?.message);
         setOpenToast(true);
-        setLoading(false);
+        setLoading(false)
         setTimeout(() => {
           setOpenToast(false);
           setErrorMsg("");
         }, 3000);
       } else {
-        setLoading(false);
+        setLoading(false)
         console.log(error);
       }
     } finally {
@@ -107,110 +109,13 @@ const OtpPage = ({ resendOtp, backToLoginPage, email, maskedEmail }) => {
 
   return (
     <>
-      <div className={styles.mobile}>
-        <PaymentHeader noDisplay />
-        <div className={styles.mainPage}>
-          <div className={styles.mainPageContent}>
-            <div className={styles.top_div}>
-              <Image
-                src={backButton}
-                alt="back"
-                onClick={backToLoginPage}
-                className={styles.back_button_otp}
-              />
-              <TitleText title={"OTP Verification"} />
-            </div>
-            <div className={styles.mainPageDesc}>
-              We have sent OTP to your registered email ID{" "}
-              <span>{maskedEmail}</span>
-            </div>
-
-            <div className={styles.otpInputLabel}>Enter OTP</div>
-            <div className={styles.otpInputWrapperDiv}>
-              <OTPInput
-                value={otp}
-                onChange={handleChangeOTP}
-                isInputNum
-                numInputs={6}
-                pattern="[0-9]*"
-                inputType="number"
-                renderInput={(props) => (
-                  <input
-                    {...props}
-                    className={
-                      incorrectOtp || expiredOtp
-                        ? `${styles.customInputOne} ${styles.borderError}`
-                        : styles.customInputOne
-                    }
-                    type="text"
-                    inputMode="decimal"
-                    style={{
-                      background: "#363638",
-                      color: "white",
-                      textAlign: "center",
-                    }}
-                  />
-                )}
-              />
-              {incorrectOtp && (
-                <div className={styles.incorrectOtpError}>
-                  Invalid OTP entered
-                </div>
-              )}
-              {expiredOtp && (
-                <div className={styles.incorrectOtpError}>OTP expired</div>
-              )}
-            </div>
-
-            {timer > 0 && startTimer ? (
-              <div className={styles.otpTimeRemaining}>
-                Time Remaining: {formatTime(timer)}
-              </div>
-            ) : (
-              <div className={styles.resendOtpLinkContainer}>
-                <span
-                  className={styles.resendOtpLinkTxt}
-                  onClick={() => {
-                    resendOtp();
-                    resetTimer();
-                    setIncorrectOtp(false);
-                    setOtp("");
-                    setExpiredOtp(false);
-                  }}
-                >
-                  Resend OTP
-                </span>
-              </div>
-            )}
+      <PaymentHeader noDisplay />
+      <div className={styles.mainPage}>
+        <div className={styles.mainPageContent}>
+          <div className={styles.top_div}>
+            <Image src={backButton} alt="back" onClick={backToLoginPage} className={styles.back_button_otp}/>
+            <TitleText title={"OTP Verification"} />
           </div>
-
-          <div className={styles.bottom_wrapper}>
-            <div className={styles.instruction}>
-              <span className={styles.note}>Note</span> - Please check the OTP
-              entered. (you will have to wait for the timer to complete to
-              request for a new OTP)
-            </div>
-            <div
-              className={`${styles.verify_btn} ${
-                disabled ? styles.disabled_btn : styles.enabled_btn
-              }`}
-              onClick={!disabled ? submitRequest : undefined}
-            >
-              Verify
-            </div>
-          </div>
-          {loading && <OTPloader />}
-          {openToast && <ToastMessage close={closeToast} message={errorMsg} />}
-        </div>
-      </div>
-
-      {/* DESKTOP  */}
-      <div className={styles.desktop_wrapper}>
-        <div className={styles.desktop}>
-          <div className={styles.logo}>
-            <Image src={logo} alt="" />
-          </div>
-          <TitleText title={"OTP Verification"} />
           <div className={styles.mainPageDesc}>
             We have sent OTP to your registered email ID{" "}
             <span>{maskedEmail}</span>
@@ -273,25 +178,25 @@ const OtpPage = ({ resendOtp, backToLoginPage, email, maskedEmail }) => {
               </span>
             </div>
           )}
-
-          <div className={styles.bottom_wrapper}>
-            <div className={styles.instruction}>
-              <span className={styles.note}>Note</span> - Please check the OTP
-              entered. (you will have to wait for the timer to complete to
-              request for a new OTP)
-            </div>
-            <div
-              className={`${styles.verify_btn} ${
-                disabled ? styles.disabled_btn : styles.enabled_btn
-              }`}
-              onClick={!disabled ? submitRequest : undefined}
-            >
-              Verify
-            </div>
-          </div>
-          {loading && <OTPloader />}
-          {openToast && <ToastMessage close={closeToast} message={errorMsg} />}
         </div>
+
+        <div className={styles.bottom_wrapper}>
+          <div className={styles.instruction}>
+            <span className={styles.note}>Note</span> - Please check the OTP
+            entered. (you will have to wait for the timer to complete to request
+            for a new OTP)
+          </div>
+          <div
+            className={`${styles.verify_btn} ${
+              disabled ? styles.disabled_btn : styles.enabled_btn
+            }`}
+            onClick={!disabled ? submitRequest : undefined}
+          >
+            Verify
+          </div>
+        </div>
+        {loading && <OTPloader />}
+        {openToast && <ToastMessage close={closeToast} message={errorMsg} />}
       </div>
     </>
   );

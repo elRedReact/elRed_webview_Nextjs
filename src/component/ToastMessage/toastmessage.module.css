@@ -10,17 +10,8 @@
 }
 
 .toast_div {
-  /* position: absolute;
-  bottom: 0;
-  z-index: 999;
-  background-color: transparent;
-  max-width: 375px;
-  width: 100%; */
-
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 999;
   background-color: transparent;
   max-width: 375px;
@@ -57,14 +48,14 @@
   font-family: "AvenirPro-regular";
 }
 
-.close_cross_btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.close_cross_btn{
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
-@media (max-width: 500px) {
-  .toast_div {
+@media(max-width: 500px){
+  .toast_div{
     max-width: 500px;
   }
 }
@@ -106,3 +97,4 @@
     background-position: 200% 0;
   }
 }
+

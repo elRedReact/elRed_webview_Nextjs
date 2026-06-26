@@ -10,8 +10,6 @@ import ToastMessage from "@/component/ToastMessage/ToastMessage";
 import { Spinner } from "react-bootstrap";
 import { getBrowserType } from "@/lib/functions";
 import BrowserNotSupported from "@/component/BrowserNotSupported/BrowserNotSupported";
-import Image from "next/image";
-import logo from "../../../public/logo.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -25,19 +23,21 @@ const Login = () => {
 
   const BROWSER_TYPE = getBrowserType();
 
+  console.log('pretest branch - elre_nextjs with tashafmahmood')
+
   const validateEmail = (value) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     setInvalidError(false);
-
+  
     if (value.length === 0) {
       setEmailError(""); // Clear error if input is empty
     } else if (!regex.test(value)) {
-      setEmailError("Invalid email ID");
+      setEmailError("Invalid Email id");
     } else {
       setEmailError(""); // Clear error for valid input
     }
   };
-
+  
   const maskEmail = (email) => {
     if (!email || !email.includes("@")) return email;
 
@@ -77,7 +77,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_MEMBERSHIP_API_URL}/payment/sendEmailOTP`,
+        "https://uftw2680orcg.elred.io/payment/sendEmailOTP",
         {
           email: email.toLowerCase().trim(),
         }
@@ -128,9 +128,9 @@ const Login = () => {
     setToastErrorMessage("");
   };
 
-  const backToLoginPage = () => {
-    setOtpPage(!otpPage);
-  };
+  const backToLoginPage = () =>{
+    setOtpPage(!otpPage)
+  }
 
   if (
     BROWSER_TYPE !== "Google Chrome" &&
@@ -147,125 +147,64 @@ const Login = () => {
     <div className={style.container_div}>
       <>
         {otpPage ? (
-        // {true ? (
           <OtpPage
             resendOtp={signIn}
             email={email.toLowerCase()}
             maskedEmail={maskEmail(email).toLowerCase()}
             transactionId={trnID}
-            countryPrefix="" 
+            countryPrefix="" // not used if you're validating email
             backToLoginPage={backToLoginPage}
           />
         ) : (
           <>
-            <div className={style.mobile_sign_in}>
-              <PaymentHeader noDisplay={true} />
-              <div className={style.sign_in}>Sign In</div>
-              <div className={style.sign_in_text}>
-                Enter your email ID you have used to sign up on el RED.
-              </div>
-              <div className={style.input_wrapper}>
-                <div className={style.phn_title}>Email ID</div>
-                <input
-                  className={`${style.email_input} ${
-                    emailError
-                      ? style.invalid_input
-                      : email
-                      ? style.valid_input
-                      : ""
-                  }`}
-                  placeholder="Your email ID"
-                  value={email}
-                  onChange={(e) => {
-                    const lowercaseEmail = e.target.value.toLowerCase();
-                    setEmail(lowercaseEmail);
-                    validateEmail(lowercaseEmail);
-                  }}
-                  type="email"
-                />
-                {emailError && (
-                  <div className={style.error_text}>{emailError}</div>
-                )}
-                {invalidError && (
-                  <div className={style.error_text}>
-                    The email is not used to create an account via the el RED
-                    app
-                  </div>
-                )}
-              </div>
-              <div className={style.button_wrapper}>
-                <div
-                  className={`${style.signin_btn} ${
-                    isDisabled || loading ? style.disabled_btn : ""
-                  }`}
-                  onClick={!isDisabled && !loading ? signIn : undefined}
-                >
-                  {loading ? (
-                    <Spinner
-                      animation="border"
-                      className={style.submit_button_spinner}
-                    />
-                  ) : (
-                    "Sign In"
-                  )}
-                </div>
-              </div>
+            <PaymentHeader noDisplay={true} />
+            <div className={style.sign_in}>Sign In</div>
+            <div className={style.sign_in_text}>
+              Enter your email ID used to sign up on el RED.
             </div>
-
-            {/* DESKTOP SCREEN COMPONENT  */}
-            <div className={style.desktop_signin_wrapper}>
-              <div className={style.desktop_content_wrapper}>
-                <Image src={logo} alt="" />
-                <div className={style.sign_in_desktop}>Sign In</div>
-                <div className={style.sign_in_text_desktop}>
-                Enter your email ID you have used to sign up on el RED.
+            <div className={style.input_wrapper}>
+              <div className={style.phn_title}>Email ID</div>
+              <input
+                className={`${style.email_input} ${
+                  emailError
+                    ? style.invalid_input
+                    : email
+                    ? style.valid_input
+                    : ""
+                }`}
+                placeholder="Your Email ID"
+                value={email}
+                onChange={(e) => {
+                  const lowercaseEmail = e.target.value.toLowerCase();
+                  setEmail(lowercaseEmail);
+                  validateEmail(lowercaseEmail);
+                }}
+                type="email"
+              />
+              {emailError && (
+                <div className={style.error_text}>{emailError}</div>
+              )}
+              {invalidError && (
+                <div className={style.error_text}>
+                  The email is not used to create an account via the el RED app
                 </div>
-                <div className={style.input_wrapper_desktop}>
-                  <input
-                    className={`${style.email_input} ${
-                      emailError
-                        ? style.invalid_input
-                        : email
-                        ? style.valid_input
-                        : ""
-                    }`}
-                    placeholder="Your email ID"
-                    value={email}
-                    onChange={(e) => {
-                      const lowercaseEmail = e.target.value.toLowerCase();
-                      setEmail(lowercaseEmail);
-                      validateEmail(lowercaseEmail);
-                    }}
-                    type="email"
+              )}
+            </div>
+            <div className={style.button_wrapper}>
+              <div
+                className={`${style.signin_btn} ${
+                  isDisabled || loading ? style.disabled_btn : ""
+                }`}
+                onClick={!isDisabled && !loading ? signIn : undefined}
+              >
+                {loading ? (
+                  <Spinner
+                    animation="border"
+                    className={style.submit_button_spinner}
                   />
-                  {emailError && (
-                    <div className={style.error_text}>{emailError}</div>
-                  )}
-                  {invalidError && (
-                    <div className={style.error_text}>
-                      The email is not used to create an account via the el RED
-                      app
-                    </div>
-                  )}
-                </div>
-
-                <div className={style.button_wrapper_desktop}>
-                  <div
-                    className={`${style.signin_btn} ${
-                      isDisabled || loading ? style.disabled_btn : ""
-                    }`}
-                    onClick={!isDisabled && !loading ? signIn : undefined}
-                  >
-                    {loading ? (
-                      <Spinner
-                        animation="border"
-                        className={style.submit_button_spinner}
-                      />
-                    ) : (
-                      "Sign In"
-                    )}
-                  </div>
-                </div>
+                ) : (
+                  "Sign In"
+                )}
               </div>
             </div>
           </>

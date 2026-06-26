@@ -6,13 +6,11 @@ import verifyBadge from "../../../public/verifyWhiteBadge.svg";
 import axios from "axios";
 import { membershipData } from "@/constants/membershipData";
 import { Spinner } from "react-bootstrap";
-import { useRouter, useSearchParams } from "next/navigation";
 
 const PurchasePlan = ({ data }) => {
   const { memberShipDetails, networkClusterDetails, subscriptionDetails } =
     data;
-  const searchParams = useSearchParams();
-  const router = useRouter();
+
   const [payuFormData, setPayuFormData] = useState(null);
   const formRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -30,22 +28,13 @@ const PurchasePlan = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    const nccode = searchParams.get("nccode");
     const token = localStorage.getItem("accessToken");
-    // console.log(nccode,'nnnn')
-
-    const handleSessionExpired = () => {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userdata");
-      localStorage.removeItem("trxId");
-      router.push(nccode ? `/membership?nccode=${nccode}` : "/membership");
-    };
 
     const makePayment = async () => {
       const token = localStorage.getItem("accessToken");
       try {
         const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_MEMBERSHIP_API_URL}/payment/makePaymentRequest`,
+          "https://uftw2680orcg.elred.io/payment/makePaymentRequest",
           {
             networkClusterCode: networkClusterDetails?.networkClusterCode,
           },
@@ -65,9 +54,6 @@ const PurchasePlan = ({ data }) => {
         setPayuFormData(result);
       } catch (error) {
         console.log(error, "ERROR IN MAKE PAYMENT");
-        if (error?.response?.data?.errorCode == 1) {
-          handleSessionExpired();
-        }
       }
     };
 
@@ -77,115 +63,35 @@ const PurchasePlan = ({ data }) => {
   }, [networkClusterDetails?.networkClusterCode]);
 
   // const handlePayNow = () => {
-  //   setLoading(true); // Show loader before redirect
-
   //   if (!payuFormData) {
   //     alert("Please wait while we prepare your payment.");
   //     return;
   //   }
 
-  //   setTimeout(() => {
-  //     if (formRef.current) {
-  //       formRef.current.submit(); // Submit PayU form after a tick
-  //     }
-  //   }, 100); // Small delay to ensure re-render happens
+  //   if (formRef.current) {
+  //     formRef.current.submit();
+  //   }
   // };
 
   const handlePayNow = () => {
-    if (loading) return; // Prevent multiple rapid clicks
-    setLoading(true); // Show loader before redirect
-  
     if (!payuFormData) {
       alert("Please wait while we prepare your payment.");
-      setLoading(false);
       return;
     }
-  
+
+    setLoading(true); // Show loader before redirect
+
     setTimeout(() => {
       if (formRef.current) {
-        formRef.current.submit();
+        formRef.current.submit(); // Submit PayU form after a tick
       }
-    }, 100);
+    }, 100); // Small delay to ensure re-render happens
   };
-  
 
   return (
     <>
       <div className={style.inner_div}>
-        <div className={style.mobile_view}>
-          <div className={style.plan_container}>
-            {networkClusterDetails?.logo && (
-              <Image
-                src={networkClusterDetails.logo}
-                alt="network-logo"
-                height={66}
-                width={66}
-                className={style.nw_logo}
-              />
-            )}
-            <div className={style.network_name}>
-              {networkClusterDetails?.name}
-            </div>
-            <div className={style.network_type}>
-              <div className={style.name}>Premium Network</div>
-            </div>
-            <div className={style.network_membership}>Membership Fee</div>
-            <div className={style.network_amount}>
-              ₹
-              <span className={style.numbers}>
-                {subscriptionDetails?.membershipCost}
-              </span>
-              /Year
-            </div>
-          </div>
-
-          <div className={style.benefits}>Membership Benefits</div>
-          <div className={style.benefit}>
-            <Image
-              src={verifyBadge}
-              alt="verified"
-              className={style.verified_icon}
-            />
-            <div>
-              <div className={style.b_title}>
-                Access {networkClusterDetails?.numberOfGroups}+ Active Groups
-              </div>
-              <div className={style.b_desc}>
-                Collaborate instantly with professionals across domains.
-              </div>
-            </div>
-          </div>
-          <div className={style.benefit}>
-            <Image
-              src={verifyBadge}
-              alt="verified"
-              className={style.verified_icon}
-            />
-            <div>
-              <div className={style.b_title}>
-                Connect with {networkClusterDetails?.numberOfMembers}+ Members
-              </div>
-              <div className={style.b_desc}>
-                Discover opportunities, mentorship, and partnerships.
-              </div>
-            </div>
-          </div>
-          {membershipData?.map((item, id) => (
-            <div className={style.benefit} key={id}>
-              <Image
-                src={verifyBadge}
-                alt="verified"
-                className={style.verified_icon}
-              />
-              <div>
-                <div className={style.b_title}>{item?.title}</div>
-                <div className={style.b_desc}>{item?.desc}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className={style.desktop_view}>
+        <div className={style.plan_container}>
           {networkClusterDetails?.logo && (
             <Image
               src={networkClusterDetails.logo}
@@ -209,83 +115,68 @@ const PurchasePlan = ({ data }) => {
             </span>
             /Year
           </div>
+        </div>
 
-          {/* LIST  */}
-          <div className={style.list_wrapper}>
-            <div className={style.list}>
-              <div className={style.inner_div_list}>
-                <div className={style.benefits}>Membership Benefits</div>
-                <div className={style.benefit}>
-                  <Image
-                    src={verifyBadge}
-                    alt="verified"
-                    className={style.verified_icon}
-                  />
-                  <div className={style.list1}>
-                    <div className={style.b_title}>
-                      Access {networkClusterDetails?.numberOfGroups}+ Active
-                      Groups
-                    </div>
-                    <div className={style.b_desc}>
-                      Collaborate instantly with professionals across domains.
-                    </div>
-                  </div>
-                </div>
-                <div className={style.benefit}>
-                  <Image
-                    src={verifyBadge}
-                    alt="verified"
-                    className={style.verified_icon}
-                  />
-                  <div className={style.list2}>
-                    <div className={style.b_title}>
-                      Connect with {networkClusterDetails?.numberOfMembers}+
-                      Members
-                    </div>
-                    <div className={style.b_desc}>
-                      Discover opportunities, mentorship, and partnerships.
-                    </div>
-                  </div>
-                </div>
-                {membershipData?.map((item, id) => (
-                  <div className={style.benefit} key={id}>
-                    <Image
-                      src={verifyBadge}
-                      alt="verified"
-                      className={style.verified_icon}
-                    />
-                    <div className={style.list_}>
-                      <div className={style.b_title}>{item?.title}</div>
-                      <div className={style.b_desc}>{item?.desc}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+        <div className={style.benefits}>Membership Benefits</div>
+        <div className={style.benefit}>
+          <Image
+            src={verifyBadge}
+            alt="verified"
+            className={style.verified_icon}
+          />
+          <div>
+            <div className={style.b_title}>
+              Access {networkClusterDetails?.numberOfGroups}+ Active Groups
+            </div>
+            <div className={style.b_desc}>
+              Collaborate instantly with professionals across domains.
             </div>
           </div>
-          <div className={style.button_wrapper}>
-            <button
-              className={loading ? style.stickyBtnLoading : style.stickyBtn}
-              onClick={loading ? null : handlePayNow}
-              // disabled={loading}
-            >
-              {loading ? (
-                <Spinner
-                  animation="border"
-                  className={style.submit_button_spinner}
-                />
-              ) : (
-                `Pay ₹${subscriptionDetails?.membershipCost} to Continue`
-              )}
-            </button>
+        </div>
+        <div className={style.benefit}>
+          <Image
+            src={verifyBadge}
+            alt="verified"
+            className={style.verified_icon}
+          />
+          <div>
+            <div className={style.b_title}>
+              Connect with {networkClusterDetails?.numberOfMembers}+ Members
+            </div>
+            <div className={style.b_desc}>
+              Discover opportunities, mentorship, and partnerships.
+            </div>
           </div>
         </div>
+        {membershipData?.map((item, id) => (
+          <div className={style.benefit} key={id}>
+            <Image
+              src={verifyBadge}
+              alt="verified"
+              className={style.verified_icon}
+            />
+            <div>
+              <div className={style.b_title}>{item?.title}</div>
+              <div className={style.b_desc}>{item?.desc}</div>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className={style.stickyBtnWrapper}>
+        {/* <button className={style.stickyBtn} onClick={handlePayNow}>
+          {loading ? (
+            <Spinner
+              animation="border"
+              className={style.submit_button_spinner}
+            />
+          ) : (
+            `Pay ₹${subscriptionDetails?.membershipCost} to Continue`
+          )}
+        </button> */}
         <button
           className={loading ? style.stickyBtnLoading : style.stickyBtn}
-          onClick={loading ? null : handlePayNow}
+          onClick={handlePayNow}
           // disabled={loading}
         >
           {loading ? (
