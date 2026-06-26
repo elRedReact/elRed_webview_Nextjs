@@ -27,7 +27,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { LogoutProvider } from "@/context/LogoutContext";
 import Head from "next/head";
 
-console.log(" deployed...");
+console.log("26 June");
 
 export default function App({ Component, pageProps }) {
   // Check if page defines its own layout
