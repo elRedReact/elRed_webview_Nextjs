@@ -435,7 +435,7 @@ const EventDetailsPage = ({ eventData, eventId }) => {
                 <div className={styles.speakerRow}>
                   <Image
                     src={
-                      eventData?.resource?.resourceImageUrl || "/speaker.jpg"
+                      eventData?.resource?.resourceImageUrl || "/speaker.svg"
                     }
                     alt="Speaker"
                     width={50}
